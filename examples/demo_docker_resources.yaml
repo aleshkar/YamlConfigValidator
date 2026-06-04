@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  api:
+    image: registry.example.com/payment-api:1.4.2
+    environment:
+      APP_ENV: production
+      DB_PASSWORD: ${PAYMENT_DB_PASSWORD}
+      API_TOKEN: ${PAYMENT_API_TOKEN}
+    deploy:
+      replicas: 2
+      resources:
+        reservations:
+          cpus: "0.5"
+          memory: 512m
+        limits:
+          cpus: "1.0"
+          memory: 1g
+
+  worker:
+    image: registry.example.com/payment-worker:1.4.2
+    environment:
+      QUEUE_TOKEN: ${PAYMENT_QUEUE_TOKEN}
+    deploy:
+      replicas: 1
+      resources:
+        reservations:
+          cpus: "0.25"
+          memory: 256m
+        limits:
+          cpus: "0.75"
+          memory: 768m

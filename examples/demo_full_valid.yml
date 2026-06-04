@@ -1,0 +1,35 @@
+app:
+  name: payment-service
+  environment: production
+  version: 1.2.0
+
+server:
+  host: 0.0.0.0
+  port: 8080
+
+database:
+  host: db.internal
+  port: 5432
+  user: payment_user
+  password: ${DB_PASSWORD}
+
+auth:
+  token: ${APP_TOKEN}
+  api_key: ${PAYMENT_API_KEY}
+
+services:
+  - api
+  - worker
+  - scheduler
+
+logging:
+  level: info
+  file: logs/payment.log
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 512Mi
+  limits:
+    cpu: 2
+    memory: 1Gi

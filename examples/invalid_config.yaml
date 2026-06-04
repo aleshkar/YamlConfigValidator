@@ -1,0 +1,33 @@
+app:
+  name: insecure-payment-service
+  environment: production
+  version: 1.0.0
+
+server:
+  host: 0.0.0.0
+  port: 8080
+
+database:
+  host: db.internal
+  port: 5432
+  user: admin
+  password: 123456
+
+auth:
+  token: abc
+  api_key: test
+  private_key: null
+  access_key: true
+
+services:
+  - api
+  - worker
+  - scheduler
+
+resources:
+  requests:
+    cpu: 1000m
+    memory: 1Gi
+  limits:
+    cpu: 500m
+    memory: 512Mi
