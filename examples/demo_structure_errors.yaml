@@ -1,0 +1,9 @@
+server:
+  host: localhost
+  host: 127.0.0.1
+
+database:
+  user:
+  password: ${DB_PASSWORD}
+
+logging:
