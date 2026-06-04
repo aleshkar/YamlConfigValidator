@@ -1,0 +1,50 @@
+service:
+  name: inngest-style-event-platform
+  environment: production
+  public_url: https://events.example.com
+
+ingress:
+  enabled: true
+  host: events.example.com
+  tls_secret: ${INGRESS_TLS_SECRET}
+
+event_api:
+  host: 0.0.0.0
+  port: 8288
+  api_key: ${INNGEST_EVENT_API_KEY}
+  token: ${INNGEST_INTERNAL_TOKEN}
+
+executor:
+  replicas: 3
+  queue: critical-events
+  token: ${EXECUTOR_AUTH_TOKEN}
+
+postgresql:
+  enabled: true
+  host: postgres.internal
+  port: 5432
+  database: inngest
+  user: inngest_app
+  password: ${POSTGRES_PASSWORD}
+  storage: 20Gi
+
+redis:
+  enabled: true
+  host: redis.internal
+  port: 6379
+  password: ${REDIS_PASSWORD}
+  storage: 8Gi
+
+workers:
+  - event-ingestion
+  - function-runner
+  - retry-scheduler
+  - metrics-exporter
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 512Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi
